@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="machine.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <title>moving-machine</title>
+</head>
+<body>
+<div class="container">
+<br><br>
+<div class="container">
+  <h2>MOVING MOTOR MACHINE</h2>    
+  <br><br>        
+  <table class="table">
+    <thead>
+      <tr>
+        <th>MOTOR NUMBER</th>
+        <th>SWITCH ON</th>
+        <th>SWITCH OFF</th>
+        <th>CURRENT SPEED</th>
+        <th>SPEED CHANGE</th>
+      </tr>
+    </thead>
+    <tbody id="myTable">
+      <tr id="1">
+        <td>motor 001</td>
+        <td><button id="1" type="button" class="btn btn-success">ON</button></td>
+        <td><button id="1" type="button" class="btn btn-danger">OFF</button></td>
+        <td><input id="1default" type="text" value="5"></td>
+        <td><button id="1" onclick='inc(1)' type="button" class="btn btn-success">increase</button></td>
+        <td><button id="1" onclick='dec(1)' type="button" class="btn btn-success">decrease</button></td> 
+      </tr>
+      <tr id="2">
+        <td>motor 002</td>
+        <td><button id="2" type="button" class="btn btn-success">ON</button></td>
+        <td><button id="2"type="button" class="btn btn-danger">OFF</button></td>
+        <td><input id="2default" type="text" value="5"></td>
+        <td><button id="2" onclick='inc(2)' type="button" class="btn btn-success">increase</button></td>
+        <td><button id="2" onclick='dec(2)' type="button" class="btn btn-success">decrease</button></td>
+      </tr>
+    </tbody>
+  </table>
+    <br><br>
+<button onclick="myFunction()" type="button" class="btn btn-success">ADD MOTOR</button>
+</div>
+</div>
+</body>
+<script>
+function myFunction() {
+    var table = document.getElementById("myTable");
+    var last=table.rows.length;
+    var motorNo=last+1;
+    var defaultSpeed=5;
+    var row = table.insertRow(last);
+    row.id=motorNo;
+    var cell1 = row.insertCell(0);
+    cell1.id=motorNo;
+
+    var cell2 = row.insertCell(1);
+    cell2.id=motorNo;
+    var butt2=document.createElement("button");
+    butt2.setAttribute("class", "btn btn-success");
+    butt2.setAttribute("style", "padding: 6px 12px;");
+    butt2.setAttribute("type", "button");
+    butt2.innerHTML='ON';
+    butt2.id = motorNo;
+    cell2.appendChild(butt2);
+
+    var cell3 = row.insertCell(2);
+    cell3.id=motorNo;
+    var butt3=document.createElement("button");
+    butt3.setAttribute("class", "btn btn-danger");
+    butt3.setAttribute("style", "padding: 6px 12px;");
+    butt3.setAttribute("type", "button");
+    butt3.innerHTML='OFF';
+    butt3.id = motorNo;
+    cell3.appendChild(butt3);
+
+    var cell4 = row.insertCell(3);
+    cell4.id=motorNo+"default";
+    var input=document.createElement("input");
+    input.setAttribute("type", "text");
+    input.setAttribute("value", "5");
+    input.id = motorNo+'default';
+    cell4.appendChild(input);
+
+    var cell5 = row.insertCell(4);
+    cell5.id=motorNo;
+    var butt5=document.createElement("button");
+    butt5.setAttribute("class", "btn btn-success");
+    butt5.setAttribute("style", "padding: 6px 12px;");
+    butt5.setAttribute("type", "button");
+    butt5.innerHTML='increase';
+    butt5.id = motorNo;
+    butt5.setAttribute("onclick", 'inc('+motorNo+')');
+    cell5.appendChild(butt5);
+
+    var cell6 = row.insertCell(5);
+    cell6.id=motorNo;
+    var butt6=document.createElement("button");
+    butt6.setAttribute("class", "btn btn-success");
+    butt6.setAttribute("style", "padding: 6px 12px;");
+    butt6.setAttribute("type", "button");
+    butt6.id = motorNo;
+    butt6.onclick=function(butt6.id){
+      
+    }
+    butt6.innerHTML='decrease';
+    cell6.appendChild(butt6);
+//////////////////////////////////////////////////////
+   if(motorNo>=10){
+      cell1.innerHTML="motor 0"+motorNo;
+    }
+    else if(motorNo>99){
+      cell1.innerHTML="motor "+motorNo;
+    }
+    else {
+      cell1.innerHTML = "motor 00"+motorNo;
+    }
+
+ //   cell2.innerHTML= '<button onclick="ON(this.id)" type="button" class="btn btn-success">ON</button>';
+ //   cell3.innerHTML= '<button type="button" class="btn btn-danger">OFF</button>';
+  //   cell4.innerHTML= '<input type="text" value="5">';
+ //   cell5.innerHTML= '<button  type="button" class="btn btn-success">increase</button>'
+ //   cell6.innerHTML= '<button id="moz"  type="button" class="btn btn-success">decrease</button>';
+    
+    last++;
+    motorNo++;
+
+}
+function inc(id){
+  var arg=id+'default';
+  var val=document.getElementById(arg);
+  val.value++;
+}
+function dec(id){
+  var arg=id+'default';
+  var val=document.getElementById(arg);
+  if(val.value>0){
+    val.value--;
+  }
+  else
+    val.value===0;
+}
+  
+</script>
+</html>
