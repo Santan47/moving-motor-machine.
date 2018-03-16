@@ -28,19 +28,19 @@
     <tbody id="myTable">
       <tr id="1">
         <td>motor 001</td>
-        <td><button id="1" type="button" class="btn btn-success">ON</button></td>
-        <td><button id="1" type="button" class="btn btn-danger">OFF</button></td>
-        <td><input id="1default" type="text" value="5"></td>
-        <td><button id="1" onclick='inc(1)' type="button" class="btn btn-success">increase</button></td>
-        <td><button id="1" onclick='dec(1)' type="button" class="btn btn-success">decrease</button></td> 
+        <td><button id="1" onclick="setdefault(this.id+'default')" type="button" class="btn btn-success">ON</button></td>
+        <td><button id="1" onclick="offMotor(this.id+'default')" type="button" class="btn btn-danger">OFF</button></td>
+        <td><input id="1default" type="text" value="0"></td>
+        <td><button id="1" onclick='inc(this.id)' type="button" class="btn btn-success">increase</button></td>
+        <td><button id="1" onclick='dec(this.id)' type="button" class="btn btn-success">decrease</button></td> 
       </tr>
       <tr id="2">
         <td>motor 002</td>
-        <td><button id="2" type="button" class="btn btn-success">ON</button></td>
-        <td><button id="2"type="button" class="btn btn-danger">OFF</button></td>
-        <td><input id="2default" type="text" value="5"></td>
-        <td><button id="2" onclick='inc(2)' type="button" class="btn btn-success">increase</button></td>
-        <td><button id="2" onclick='dec(2)' type="button" class="btn btn-success">decrease</button></td>
+        <td><button id="2" onclick="setdefault(this.id+'default')" type="button" class="btn btn-success">ON</button></td>
+        <td><button id="2" onclick="offMotor(this.id+'default')" type="button" class="btn btn-danger">OFF</button></td>
+        <td><input id="2default" type="text" value="0"></td>
+        <td><button id="2" onclick='inc(this.id)' type="button" class="btn btn-success">increase</button></td>
+        <td><button id="2" onclick='dec(this.id)' type="button" class="btn btn-success">decrease</button></td>
       </tr>
     </tbody>
   </table>
@@ -62,10 +62,12 @@ function myFunction() {
 
     var cell2 = row.insertCell(1);
     cell2.id=motorNo;
+    id=motorNo+'default';
     var butt2=document.createElement("button");
     butt2.setAttribute("class", "btn btn-success");
     butt2.setAttribute("style", "padding: 6px 12px;");
     butt2.setAttribute("type", "button");
+    butt2.addEventListener("click",setdefault(id), false);
     butt2.innerHTML='ON';
     butt2.id = motorNo;
     cell2.appendChild(butt2);
@@ -81,34 +83,30 @@ function myFunction() {
     cell3.appendChild(butt3);
 
     var cell4 = row.insertCell(3);
-    cell4.id=motorNo+"default";
+    cell4.id=motorNo+'default';
     var input=document.createElement("input");
     input.setAttribute("type", "text");
-    input.setAttribute("value", "5");
+    input.setAttribute("value", "0");
     input.id = motorNo+'default';
     cell4.appendChild(input);
 
     var cell5 = row.insertCell(4);
     cell5.id=motorNo;
     var butt5=document.createElement("button");
+    butt5.id = motorNo;              
     butt5.setAttribute("class", "btn btn-success");
     butt5.setAttribute("style", "padding: 6px 12px;");
     butt5.setAttribute("type", "button");
     butt5.innerHTML='increase';
-    butt5.id = motorNo;
-    butt5.setAttribute("onclick", 'inc('+motorNo+')');
     cell5.appendChild(butt5);
 
     var cell6 = row.insertCell(5);
     cell6.id=motorNo;
     var butt6=document.createElement("button");
+    butt6.id = motorNo;
     butt6.setAttribute("class", "btn btn-success");
     butt6.setAttribute("style", "padding: 6px 12px;");
     butt6.setAttribute("type", "button");
-    butt6.id = motorNo;
-    butt6.onclick=function(butt6.id){
-      
-    }
     butt6.innerHTML='decrease';
     cell6.appendChild(butt6);
 //////////////////////////////////////////////////////
@@ -127,10 +125,6 @@ function myFunction() {
   //   cell4.innerHTML= '<input type="text" value="5">';
  //   cell5.innerHTML= '<button  type="button" class="btn btn-success">increase</button>'
  //   cell6.innerHTML= '<button id="moz"  type="button" class="btn btn-success">decrease</button>';
-    
-    last++;
-    motorNo++;
-
 }
 function inc(id){
   var arg=id+'default';
@@ -140,12 +134,19 @@ function inc(id){
 function dec(id){
   var arg=id+'default';
   var val=document.getElementById(arg);
-  if(val.value>0){
+  if(val.value>5){
     val.value--;
   }
   else
     val.value===0;
 }
-  
+function setdefault(starting){
+  var elem=document.getElementById(starting);
+  elem.value=5;
+}
+function offMotor(off){
+  var elem= document.getElementById(off);
+  elem.value=0;
+}
 </script>
 </html>
