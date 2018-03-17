@@ -28,7 +28,7 @@
     </thead>
     <tbody id="myTable">
       <tr id="1">
-        <td><h4 name="motorNo">motor001</h4></td>
+        <td><h4 name="motorNO">motor001</h4></td>
         <td><button id="1" onclick="setdefault(this.id)" type="button" class="btn btn-success">ON</button></td>
         <td><button id="1" onclick="offMotor(this.id)" type="button" class="btn btn-danger">OFF</button></td>
         <td><input id="default1" name="speed" type="text" value="0"></td>
@@ -36,7 +36,7 @@
         <td><button id="1" onclick='dec(this.id)' type="button" class="btn btn-success">decrease</button></td> 
       </tr>
       <tr id="2">
-        <td><h4 name="motorNo">motor002</h4></td>
+        <td><h4 name="motorNO">motor002</h4></td>
         <td><button id="2" onclick="setdefault(this.id)" type="button" class="btn btn-success">ON</button></td>
         <td><button id="2" onclick="offMotor(this.id)" type="button" class="btn btn-danger">OFF</button></td>
         <td><input id="default2" name="speed" type="text" value="0"></td>
@@ -174,3 +174,40 @@ setInterval( function() {
    }, 10000);
 </script>
 </html>
+
+
+<?php
+
+$host='localhost';
+$user='root';
+$pass='@tarzan123#';
+$db='motor-move';
+$conn=mysqli_connect($host,$user,$pass,$db);
+
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+}
+
+
+$motorNo = mysqli_real_escape_string($conn, $_REQUEST[motorNo]);
+
+$speed = mysqli_real_escape_string($conn, $_REQUEST[speed]);
+
+echo $motorNo;
+
+$sql = "INSERT INTO record(motorNo, speed ,time) VALUES ('$motorNo', '$speed', 	NOW() )";
+
+if(mysqli_query($conn, $sql)){
+
+    echo "Records added successfully.";
+
+} else{
+
+    echo "ERROR: Could not able to execute $sql. " . mysqli_error($conn);
+
+}
+
+mysql_close($conn);
+
+
+?>

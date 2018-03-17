@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="machine.css">
+  <link rel="stylesheet" href="index.html">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <title>moving-machine</title>
+</head>
+<body>
+<div class="container">
+<br><br>
+<div class="container">
+  <h2>HEALTH OF MOTOR MACHINE</h2>    
+  <br><br>        
+  <table class="table">
+    <thead>
+      <tr>
+        <th>MOTOR NUMBER</th>
+        <th>MOTOR HEALTH</th>
+        <th>FIX ISSUES</th>
+      </tr>
+    </thead>
+    <tbody id="myTable">
+      <tr id="1">
+        <td><h4 name="motorNo">motor001</h4></td>
+        <td><span id="span1" class="dot"></span></td>
+        <td><button id="1" onclick='fixIt(this.id)' type="button" class="btn btn-success">FIX ISSUES</button>
+      </tr>
+      <tr id="2">
+        <td><h4 name"motorNo"> motor002</h4></td>
+        <td><span id="span2" class="dot2"></span></td>
+        <td><button id="2" onclick='fixIt(this.id)' type="button" class="btn btn-success">FIX ISSUES</button></td>
+      </tr>
+    </tbody>
+  </table>
+    <br><br>
+<button onclick="addMotor()" type="button" class="btn btn-success">ADD MOTOR</button>
+<button onclick="location.href = 'index.html';" type="button" class="btn btn-success">MOVING MOTOR CONTROL</button>
+</div>
+</div>
+</body>
+<style>
+.dot {
+  height: 50px;
+  width: 50px;
+  background-color: #5cb85c;
+  border-radius: 50%;
+  display: inline-block;
+}
+.dot2 {
+  height: 50px;
+  width: 50px;
+  background-color: #d9534f;
+  border-radius: 50%;
+  display: inline-block;
+}
+</style>
+<script >
+function addMotor() {
+    var table = document.getElementById("myTable");
+    var last=table.rows.length;
+    var motorNo=last+1;
+    var row = table.insertRow(last);
+    row.id=motorNo;
+    var cell1 = row.insertCell(0);
+    cell1.id=motorNo;
+    if(motorNo>=10){
+      var motor=document.createElement("h4");
+      motor.setAttribute("name", "motorNo");
+      motor.innerHTML="motor0"+motorNo;
+      cell1.appendChild(motor);
+    }
+    else if(motorNo>99){
+      var motor=document.createElement("h4");
+      motor.setAttribute("name", "motorNo");
+      motor.innerHTML="motor"+motorNo;
+      cell1.appendChild(motor);
+    }
+    else {
+      var motor=document.createElement("h4");
+      motor.setAttribute("name", "motorNo");
+      motor.innerHTML="motor00"+motorNo;
+      cell1.appendChild(motor);
+    }
+
+    var cell2 = row.insertCell(1);
+    cell2.id=motorNo;
+    var span=document.createElement("span");
+    span.id = motorNo;
+    span.setAttribute("class", "dot");
+    cell2.appendChild(span);
+
+    var cell3 = row.insertCell(2);
+    cell3.id=motorNo;
+    var butt3=document.createElement("button");
+    butt3.setAttribute("class", "btn btn-success");
+    butt3.setAttribute("style", "padding: 6px 12px;");
+    butt3.setAttribute("type", "button");
+    butt3.innerHTML='FIX ISSUES';
+    butt3.id = motorNo;
+    cell3.appendChild(butt3);
+
+//////////////////////////////////////////////////////
+}
+function fixIt(fix){
+  var id='span'+fix;
+  var elem=document.getElementById(id);
+  elem.style.backgroundColor="#5cb85c";
+}
+
+setInterval( function() {
+      $('#clicktoenteraconversation').load('index.php');
+      //$('#friendstochatwith').load('checkloggedinchat.php?username=<?php echo $username; ?>&otherchatuser=<?php echo $otherchatuser; ?>');
+   }, 10000);
+</script>
